@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import CardItem from "./CardItem";
 import "./Cards.css";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Papa from "papaparse";
 import Data from "./testing_data.csv";
 import { Link } from "react-router-dom";
+import PokemonFetcher from "./PokemonFetcher";
 
 function Cards() {
   const [data, setData] = useState([]);
+  const [pokemonData, setPokemonData] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,6 +26,10 @@ function Cards() {
     };
     fetchData();
   }, []);
+
+  const handlePokemonData = (pokemonData) => {
+    setPokemonData(pokemonData);
+  };
 
   return (
     <div className="cards">
@@ -42,10 +48,18 @@ function Cards() {
                   />
                 ))
               : null}
-            
-       
+            {pokemonData && (
+              <CardItem
+                src={pokemonData.sprites.front_default}
+                text={`Name: ${pokemonData.name}`}
+                label={`Type: ${pokemonData.types[0].type.name}`}
+                path={`/pokemon/${pokemonData.id}`}
+              />
+            )}
           </ul>
-          
+          <ul>
+            <PokemonFetcher onPokemonData={handlePokemonData} />
+          </ul>
         </div>
       </div>
     </div>
