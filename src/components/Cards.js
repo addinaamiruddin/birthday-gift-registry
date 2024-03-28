@@ -4,7 +4,11 @@ import "./Cards.css";
 import { useEffect } from "react";
 import Papa from "papaparse";
 import Data from "./testing_data.csv";
+<<<<<<< HEAD
 // import { Link } from "react-router-dom";
+=======
+import { Link } from "react-router-dom";
+>>>>>>> fe46d0bd53624c580e9618c933b659766e92081b
 import PokemonFetcher from "./PokemonFetcher";
 
 function Cards() {
